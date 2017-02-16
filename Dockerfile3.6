@@ -1,0 +1,8 @@
+# to build 3hdeng/nltk:3.6
+FROM python:3.6
+MAINTAINER 3hdeng
+RUN  pip install -U nltk &&  echo "nltk installed"
+RUN  python -m nltk.downloader book && echo "nltk data for book downloaded" 
+
+RUN  pip install matplotlib && echo "matplotlib installed"
+CMD []
