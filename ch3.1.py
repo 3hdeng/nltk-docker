@@ -105,4 +105,8 @@ raw = BeautifulSoup(content, "html.parser").get_text()
 print(nltk.word_tokenize(raw) )
 
 
-
+#==================
+s=input("Pls input sth\n")
+tokens=nltk.word_tokenize(s)
+print(s)
+print(tokens)
