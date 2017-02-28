@@ -25,4 +25,56 @@ def compress(word):
 
 print( compress('declaration') )
 
+#===========================================
+#extract all consonant-vowel sequences from the words of Rotokas, such as ka and si. Since each of these is a pair, it can be used to initialize a conditional frequency distribution. We then tabulate the frequency of each pair:
+
+ 	
+rotokas_words = nltk.corpus.toolbox.words('rotokas.dic')
+cvs = [cv for w in rotokas_words for cv in re.findall(r'[ptksvr][aeiou]', w)]
+cfd = nltk.ConditionalFreqDist(cvs)
+cfd.tabulate()
+#    a    e    i    o    u
+#k  418  148   94  420  173
+#p   83   31  105   34   51
+#r  187   63   84   89   79
+#s    0    0  100    2    1
+#t   47    8    0  148   37
+#v   93   27  105   48   49
+
+# nltk.Index
+cv_word_pairs = [(cv, w) for w in rotokas_words
+            for cv in re.findall(r'[ptksvr][aeiou]', w)]
+cv_index = nltk.Index(cv_word_pairs)
+print( cv_index['su'] )
+# ['kasuari']
+print( cv_index['po'] )
+
+
+#====== word stem, lemma, root
+def stem(word):
+   for suffix in ['ing', 'ly', 'ed', 'ious', 'ies', 'ive', 'es', 's', 'ment']:
+       if word.endswith(suffix):
+             return word[:-len(suffix)]
+   return word
+
+print(stem('shits'))
+print(stem('idiots'))
+
+
+#====================
+def stem(word):
+ regexp = r'^(.*?)(ing|ly|ed|ious|ies|ive|es|s|ment)?$'
+ stem, suffix = re.findall(regexp, word)[0]
+ return stem
+
+print(stem('processing'))
+print(stem('processes'))
+print(stem('dog'))
+
+#================
+raw = """DENNIS: Listen, strange women lying in ponds distributing swords
+... is no basis for a system of government.  Supreme executive power derives from
+... a mandate from the masses, not from some farcical aquatic ceremony."""
+tokens = nltk.word_tokenize(raw)
+print([stem(t) for t in tokens])
 
