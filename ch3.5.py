@@ -59,17 +59,29 @@ def stem(word):
 
 print(stem('shits'))
 print(stem('idiots'))
+print(stem('processes'))
 
+#============
+# re.findall(r'^.*(ing|ly|ed|ious|ies|ive|es|s|ment)$', 'processing')
+# ['ing']
+""" Here, re.findall() just gave us the suffix even though the regular expression matched the entire word. This is because the parentheses have a second function, to select substrings to be extracted
+"""
 
-#====================
+#=== arcane subtlety (?:ing|ly|ed|es|s)
+# re.findall(r'^.*(?:ing|ly|ed|ious|ies|ive|es|s|ment)$', 'processing')
+#['processing']
+
+#====== non-greedy version of start operator  *? ==============
 def stem(word):
  regexp = r'^(.*?)(ing|ly|ed|ious|ies|ive|es|s|ment)?$'
  stem, suffix = re.findall(regexp, word)[0]
  return stem
 
-print(stem('processing'))
-print(stem('processes'))
-print(stem('dog'))
+print(stem('processing')) # [('process', 'ing')]
+print(stem('processes')) # [('process', 'es')]
+print(stem('dog')) # [('dog','')]
+
+
 
 #================
 raw = """DENNIS: Listen, strange women lying in ponds distributing swords
@@ -77,4 +89,33 @@ raw = """DENNIS: Listen, strange women lying in ponds distributing swords
 ... a mandate from the masses, not from some farcical aquatic ceremony."""
 tokens = nltk.word_tokenize(raw)
 print([stem(t) for t in tokens])
+
+
+#========
+#import nltk
+
+#=======================
+from nltk.corpus import gutenberg
+moby = nltk.Text(gutenberg.words('melville-moby_dick.txt'))
+x=moby.findall(r"<a> (<.*>) <man>")
+# monied; nervous; dangerous; white; white; white; pious; queer; good;
+# mature; white; Cape; great; wise; wise; butterless; white; fi
+
+# print(type(x))
+# print(x)
+
+
+#====================
+from nltk.corpus import brown
+hobbies_learned = nltk.Text(brown.words(categories=['hobbies', 'learned']))
+#xxx print( hobbies_learned.findall(r"<\w*> <and> <other> <\w*s>") )
+hobbies_learned.findall(r"<\w*> <and> <other> <\w*s>")
+# speed and other activities; water and other liquids; tomb and other
+# landmarks; Statues and other monuments; pearls and other jewels;
+#..
+# None
+#[Q] why 'None' appear in the end of print out ?
+# no need to print findall() as findall() will print out the matched results 
+# during the process and  return None at last
+
 
