@@ -5,4 +5,8 @@ RUN  pip install -U nltk &&  echo "nltk installed"
 RUN  python -m nltk.downloader book && echo "nltk data for book downloaded" 
 
 RUN  pip install matplotlib && echo "matplotlib installed"
+
+#=========
+RUN  pip install feedparser && echo "feedparser installed"
+RUN  pip install beautifulsoup4 && echo "beautifulsoup4 installed"
 CMD []
