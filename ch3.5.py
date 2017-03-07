@@ -15,6 +15,9 @@ print( fd.most_common(12) )
 x=[int(n) for n in re.findall(r'[0-9]+', '2009-12-31')]
 print(x)
 
+# re.findall() , re.search() comparison
+# [Q] re.findall() return the list of matched results??
+
 #=====================
 # it is still easy to read when word-internal vowels are left out. For example, declaration becomes dclrtn, and inalienable becomes inlnble
 # matches initial vowel sequences, final vowel sequences, and all consonants; everything else is ignored
@@ -24,6 +27,15 @@ def compress(word):
     return ''.join(pieces)
 
 print( compress('declaration') )
+
+def compress2(word):
+    m = re.search(regexp, word)
+    print( type(m))
+    return ''.join(m.group())
+
+print( compress2('declaration') )
+
+
 
 #===========================================
 #extract all consonant-vowel sequences from the words of Rotokas, such as ka and si. Since each of these is a pair, it can be used to initialize a conditional frequency distribution. We then tabulate the frequency of each pair:
@@ -69,7 +81,7 @@ print(stem('processes'))
 
 #=== arcane subtlety (?:ing|ly|ed|es|s)
 # re.findall(r'^.*(?:ing|ly|ed|ious|ies|ive|es|s|ment)$', 'processing')
-#['processing']
+# return list of  the whole word ['processing']
 
 #====== non-greedy version of start operator  *? ==============
 def stem(word):
