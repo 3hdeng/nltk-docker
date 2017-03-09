@@ -8,6 +8,9 @@ print(len(set(wordlist)))
 #===============
 from nltk.corpus import treebank as tb
 wsj = sorted(set(tb.words()))
+
+#[Q] re.search() return boolean ? --> return m, matched set, m.group()
+
 print( [w for w in wsj if re.search('^[0-9]+\.[0-9]+$', w)] )
 # ['0.0085', '0.05', '0.1', '0.16', '0.2', '0.25', '0.28', '0.3', '0.4', '0.5',
 # '0.50', '0.54', '0.56', '0.60', '0.7', '0.82', '0.84', '0.9', '0.95', '0.99',
